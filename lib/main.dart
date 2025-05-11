@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _currentValue = value;
         });
       } else {
-        _showMessage("⚠️ Введіть число або секретну фразу для скидання!");
+        _showMessage("⚠️ Введіть число або секретну фразу для скидання!!!");
       }
     }
 
