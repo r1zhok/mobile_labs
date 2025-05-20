@@ -3,6 +3,7 @@ import 'package:test/pages/home_page.dart';
 
 import '../utils/mqtt-utils.dart';
 import '../utils/network-util.dart';
+import 'no_internet_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -23,21 +24,23 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _handleStartupLogic() async {
     final hasInternet = await NetworkService().hasInternet();
-
+    print(hasInternet);
     final user = await _autoLogin();
 
     if (user != null) {
       if (!hasInternet) {
-        _showNoInternetDialog();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const NoInternetPage()),
+        );
       } else {
         await MQTTService().connect();
         _mqttConnected = true;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const VibrationPage()),
+        );
       }
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const VibrationPage()),
-      );
     }
   }
 

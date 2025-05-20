@@ -5,12 +5,14 @@ import 'package:test/pages/welcome_page.dart';
 import 'package:test/utils/network-util.dart';
 import 'core/repository/shared_prefs_user_repository.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final userRepository = SharedPrefsUserRepository();
   final user = await userRepository.getUser();
 
+  await Future.delayed(const Duration(milliseconds: 500));
   final hasInternet = await NetworkService().hasInternet();
 
   Widget homePage;
